@@ -71,11 +71,11 @@ public class MovieInfoResource {
         }
     }
 
-    @Path("/findByTitleAll/{title}")
+        @Path("/findByTitleAll/{title}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public MovieAllDTO getSingleMovieAll(@PathParam("title") String title) {
-        if (rf.checkForEmptiness(title) != 0) {
+        if (rf.getRequestCountByTitle(title) != 0) {
             MovieAllDTO m = rf.getSingleByTitle(title);
             rf.createRequest(gson.toJson(m), title);
             return rf.getSingleByTitle(title);

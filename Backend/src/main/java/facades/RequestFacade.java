@@ -21,17 +21,17 @@ import javax.ws.rs.WebApplicationException;
  * @author APC
  */
 public class RequestFacade {
-    
+
     private static RequestFacade instance;
     private static EntityManagerFactory emf;
     private static final Gson gson = new Gson();
-    
+
     //Private Constructor to ensure Singleton
-    private RequestFacade() {}
-    
-    
+    private RequestFacade() {
+    }
+
     /**
-     * 
+     *
      * @param _emf
      * @return an instance of this facade class.
      */
@@ -46,15 +46,16 @@ public class RequestFacade {
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    
+
     public Request getSingle(long id) throws WebApplicationException {
         Request r = getEntityManager().find(Request.class, id);
-        if(r == null)
+        if (r == null) {
             throw new WebApplicationException("Request with id " + id + " was not found");
-        
+        }
+
         return new Request();
     }
-    
+
     public void createRequest(String jSonStr, String title) {
         EntityManager em = getEntityManager();
         try {
@@ -65,7 +66,7 @@ public class RequestFacade {
             em.close();
         }
     }
-    
+
     public void createFirstRequest(String jSonStr, String title) {
         EntityManager em = getEntityManager();
         try {
@@ -76,33 +77,29 @@ public class RequestFacade {
             em.close();
         }
     }
-    
+
     public MovieAllDTO getSingleByTitle(String title) throws WebApplicationException {
-            String jSon = getEntityManager().createQuery("SELECT r.jSon FROM Request r WHERE r.title = :title AND r.movieReqId = 1", String.class)
+        String jSon = getEntityManager().createQuery("SELECT r.jSon FROM Request r WHERE r.title = :title AND r.movieReqId = 1", String.class)
                 .setParameter("title", title)
                 .getSingleResult();
-            System.out.println(jSon + "DET VIRKER");
-            return gson.fromJson(jSon, MovieAllDTO.class);
+        return gson.fromJson(jSon, MovieAllDTO.class);
     }
-    
-    public Long checkForEmptiness(String title) throws WebApplicationException {
-            Long jSon = getEntityManager().createQuery("SELECT COUNT(r.title) FROM Request r WHERE r.title = :title", Long.class)
+
+    public Long getRequestCountByTitle(String title) throws WebApplicationException {
+        Long jSon = getEntityManager().createQuery("SELECT COUNT(r.title) FROM Request r WHERE r.title = :title", Long.class)
                 .setParameter("title", title)
                 .getSingleResult();
-            System.out.println(jSon + "DET VIRKER");
-            return jSon;
+        return jSon;
     }
-    
-    public long getRequestCountByTitle(String title) {
-        List<MovieAllDTO> movies = new ArrayList();
-        
-        return getEntityManager().createQuery("SELECT size(r.jSon) FROM Request r WHERE r.title = :title IN :movies", Long.class)
-                .setParameter("movies", movies)
-                .getSingleResult();
-        
-        
-    }
-    
+
+//    public Long getRequestCountAll() throws WebApplicationException {
+//        List<Request> reqs = new ArrayList();
+//        
+//        Long jSon = getEntityManager().createQuery("SELECT COUNT(r.title) FROM Request r WHERE r.title = :title", Long.class)
+//                .getResultList();
+//        return jSon;
+//    }
+
     public static void main(String[] args) {
         RequestFacade rf = new RequestFacade();
         rf.getSingleByTitle("Die Hard");
