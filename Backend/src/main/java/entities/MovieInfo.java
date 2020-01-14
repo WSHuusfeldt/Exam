@@ -6,10 +6,12 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -20,7 +22,7 @@ public class MovieInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     private String title;
@@ -29,18 +31,23 @@ public class MovieInfo implements Serializable {
     private String directors;
     private String genres;
     private String cast;
+    
+//    @OneToMany(mappedBy = "movieInfo")
+//    private List<Request> requests;
 
     public MovieInfo() {
     }
 
-    public MovieInfo(String title, int year, String plot, String directors, String genres, String cast) {
-        this.title = title;
-        this.year = year;
-        this.plot = plot;
-        this.directors = directors;
-        this.genres = genres;
-        this.cast = cast;
-    }
+//    public MovieInfo(String title, int year, String plot, String directors, String genres, String cast, List<Request> requests) {
+//        this.title = title;
+//        this.year = year;
+//        this.plot = plot;
+//        this.directors = directors;
+//        this.genres = genres;
+//        this.cast = cast;
+//        this.requests = requests;
+//    }
+
 
     public String getTitle() {
         return title;
