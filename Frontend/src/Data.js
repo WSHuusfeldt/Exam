@@ -1,14 +1,14 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from 'react';
 import Facade from './login/ApiFacade';
-import { Button, Popover, PopoverHeader, PopoverBody, UncontrolledPopover } from 'reactstrap';
+import { Button, PopoverHeader, PopoverBody, UncontrolledPopover } from 'reactstrap';
 
 export default function Data({ props }) {
   const [data, setData] = useState([]);
-  const [title, setTitle] = useState([]);
 
   useEffect(() => {
-    Facade.fetchSimpleMovie(title).then(res => setData(res));
-  }, [title]);
+    Facade.fetchSimpleMovie().then(res => setData(res));
+  }, []);
 
   const setNewData = newData => {
     setData(newData);
