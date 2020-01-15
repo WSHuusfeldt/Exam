@@ -9,7 +9,7 @@ import entities.MovieInfo;
 
 /**
  *
- * @author APC
+ * @author William
  */
 public class MovieAllDTO {
     

@@ -98,42 +98,4 @@ public class UserFacadeTest {
         assertEquals(expected, facade.getVeryfiedUser(expected, "badpassword").getUserName());
     }
     
-    //Not supported yet
-    @Disabled
-    @Test
-    public void getAllTest() {
-        //assertEquals(2, facade.getAll().size(), "Expects two rows in the database");
-    }
-
-    //Not supported yet
-    @Disabled
-    @Test
-    public void addTest() {
-//        EntityManager em = emf.createEntityManager();
-//        int expected = 0;
-//        int result = 0;
-//        
-//        try {
-//            facade.add(new User("Martin", "csgonoob"));
-//            result = em.createQuery("SELECT u From User u", User.class).getResultList().size();
-//        } finally {
-//            em.close();
-//        }
-//        
-//        assertEquals(expected + 1, result);
-    }
-    
-    //Not yet supported
-    @Disabled
-    @Test
-    public void editTest() {
-//        String expected = "Bodil";
-//        User result;
-//        
-//        users.get(0).setUserName(expected);
-//        facade.edit(users.get(0));
-//        result = users.get(0);
-//
-//        assertEquals(expected, result.getUserName());
-    }
 }

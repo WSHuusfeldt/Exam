@@ -6,15 +6,13 @@
 package rest;
 
 import com.google.gson.Gson;
-import entities.dto.ImdbDTO;
-import entities.dto.MetacriticDTO;
 import entities.dto.MovieAllDTO;
 import entities.dto.MovieSimpleDTO;
 import entities.dto.PosterDTO;
-import entities.dto.TomatoDTO;
 import facades.CriticsFacade;
 import facades.MovieSimpleFacade;
 import facades.RequestFacade;
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.ws.rs.GET;
@@ -30,7 +28,7 @@ import utils.EMF_Creator;
 
 /**
  *
- * @author APC
+ * @author William
  */
 @Path("movieInfo")
 public class MovieInfoResource {
@@ -71,11 +69,12 @@ public class MovieInfoResource {
         }
     }
 
-        @Path("/findByTitleAll/{title}")
+    @Path("/findByTitleAll/{title}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
+    @RolesAllowed({"admin"})
     public MovieAllDTO getSingleMovieAll(@PathParam("title") String title) {
-        if (rf.getRequestCountByTitle(title) != 0) {
+        if (rf.getRequestCountByTitleV2(title).getRequestAmount() != 0) {
             MovieAllDTO m = rf.getSingleByTitle(title);
             rf.createRequest(gson.toJson(m), title);
             return rf.getSingleByTitle(title);
@@ -94,11 +93,6 @@ public class MovieInfoResource {
                 throw new WebApplicationException("No movie with title: " + title + " was found.", Status.NOT_FOUND);
             }
         }
-    }
-    
-    public static void main(String[] args) {
-        MovieAllDTO m = rf.getSingleByTitle("Die Hard");
-        System.out.println(m.getTitle());
     }
 
 }

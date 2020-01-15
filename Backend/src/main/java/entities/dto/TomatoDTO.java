@@ -5,11 +5,10 @@
  */
 package entities.dto;
 
-import java.util.List;
 
 /**
  *
- * @author APC
+ * @author William
  */
 public class TomatoDTO {
     

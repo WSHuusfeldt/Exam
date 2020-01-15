@@ -64,8 +64,12 @@ function ApiFacade() {
   };
 
   const fetchMovieAll = title => {
-    return fetch(URL + '/api/movieInfo/findByTitleAll/' + title, makeOptions('GET')).then(handleHttpErrors);
+    return fetch(URL + '/api/movieInfo/findByTitleAll/' + title, makeOptions('GET', true)).then(handleHttpErrors);
   };
+
+  const fetchRequestCount = title => {
+      return fetch(URL + '/api/movieCount/' + title, makeOptions('GET', true)).then(handleHttpErrors);
+  }
 
   return {
     login,
@@ -73,6 +77,7 @@ function ApiFacade() {
     fetchUser,
     fetchData,
     fetchSimpleMovie,
+    fetchRequestCount,
     fetchMovieAll
   };
 }

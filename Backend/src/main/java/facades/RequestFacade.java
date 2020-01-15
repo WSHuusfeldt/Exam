@@ -8,17 +8,15 @@ package facades;
 import com.google.gson.Gson;
 import entities.Request;
 import entities.dto.MovieAllDTO;
-import java.util.ArrayList;
+import entities.dto.RequestDTO;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 import javax.ws.rs.WebApplicationException;
 
 /**
  *
- * @author APC
+ * @author William
  */
 public class RequestFacade {
 
@@ -47,14 +45,6 @@ public class RequestFacade {
         return emf.createEntityManager();
     }
 
-    public Request getSingle(long id) throws WebApplicationException {
-        Request r = getEntityManager().find(Request.class, id);
-        if (r == null) {
-            throw new WebApplicationException("Request with id " + id + " was not found");
-        }
-
-        return new Request();
-    }
 
     public void createRequest(String jSonStr, String title) {
         EntityManager em = getEntityManager();
@@ -85,23 +75,11 @@ public class RequestFacade {
         return gson.fromJson(jSon, MovieAllDTO.class);
     }
 
-    public Long getRequestCountByTitle(String title) throws WebApplicationException {
+    public RequestDTO getRequestCountByTitleV2(String title) throws WebApplicationException {
         Long jSon = getEntityManager().createQuery("SELECT COUNT(r.title) FROM Request r WHERE r.title = :title", Long.class)
                 .setParameter("title", title)
                 .getSingleResult();
-        return jSon;
+        return new RequestDTO(title, jSon);
     }
 
-//    public Long getRequestCountAll() throws WebApplicationException {
-//        List<Request> reqs = new ArrayList();
-//        
-//        Long jSon = getEntityManager().createQuery("SELECT COUNT(r.title) FROM Request r WHERE r.title = :title", Long.class)
-//                .getResultList();
-//        return jSon;
-//    }
-
-    public static void main(String[] args) {
-        RequestFacade rf = new RequestFacade();
-        rf.getSingleByTitle("Die Hard");
-    }
 }

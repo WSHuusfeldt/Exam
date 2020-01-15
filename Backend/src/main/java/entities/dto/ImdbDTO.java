@@ -7,7 +7,7 @@ package entities.dto;
 
 /**
  *
- * @author APC
+ * @author William
  */
 public class ImdbDTO {
     

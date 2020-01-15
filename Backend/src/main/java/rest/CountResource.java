@@ -6,11 +6,11 @@
 package rest;
 
 import com.google.gson.Gson;
-import entities.Request;
+import entities.dto.RequestDTO;
 import facades.CriticsFacade;
 import facades.MovieSimpleFacade;
 import facades.RequestFacade;
-import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.ws.rs.GET;
@@ -25,7 +25,7 @@ import utils.EMF_Creator;
 
 /**
  *
- * @author APC
+ * @author William
  */
 @Path("movieCount")
 public class CountResource {
@@ -51,13 +51,13 @@ public class CountResource {
         return "{\"msg\": \"Welcome to the Movie API!\"}";
     }
 
-    @Path("{title}")
+    @Path("/{title}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    
-    public Long getRequestCountByTitle(@PathParam("title") String title) {
+    @RolesAllowed({"admin"})
+    public RequestDTO getRequestCountByTitle(@PathParam("title") String title) {
         try {
-            return rf.getRequestCountByTitle(title);
+            return rf.getRequestCountByTitleV2(title);
         } catch (NoResultException ex) {
             throw new WebApplicationException("Movie/request not allowed");
         }

@@ -9,17 +9,17 @@ package entities.dto;
  *
  * @author William
  */
-public class PosterDTO {
+public class RequestDTO {
     
     private String title;
-    private String poster;
+    private Long requestAmount;
 
-    public PosterDTO() {
+    public RequestDTO() {
     }
 
-    public PosterDTO(String title, String poster) {
+    public RequestDTO(String title, Long requestAmount) {
         this.title = title;
-        this.poster = poster;
+        this.requestAmount = requestAmount;
     }
 
     public String getTitle() {
@@ -30,12 +30,12 @@ public class PosterDTO {
         this.title = title;
     }
 
-    public String getPoster() {
-        return poster;
+    public Long getRequestAmount() {
+        return requestAmount;
     }
 
-    public void setPoster(String poster) {
-        this.poster = poster;
+    public void setRequestAmount(Long requestAmount) {
+        this.requestAmount = requestAmount;
     }
     
     

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Facade from './login/ApiFacade';
 import { Button, PopoverHeader, PopoverBody, UncontrolledPopover } from 'reactstrap';
 
-export default function Data({ props }) {
+export default function SimpleMovieData({ props }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -35,7 +35,6 @@ function MovieTable({ data }) {
           <th scope="col">Genres</th>
           <th scope="col">Cast</th>
           <th scope="col">Poster</th>
-          <th scope="col">Ratings</th>
         </tr>
       </thead>
       <tbody>
@@ -58,35 +57,10 @@ function MovieTable({ data }) {
                 </PopoverBody>
               </UncontrolledPopover>
             </td>
-            <td>
-              <Button id="UncontrolledPopover" type="button">
-                Show ratings
-              </Button>
-              <UncontrolledPopover placement="bottom" target="UncontrolledPopover">
-                <PopoverHeader>Ratings</PopoverHeader>
-                <PopoverBody>
-                  <table width="250px">
-                    <thead>
-                      <tr>
-                        <th scope="col">IMDB</th>
-                        <th scope="col">Tomatoes(Critic)</th>
-                        <th scope="col">Metacritic</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>{movie.imdb.imdbRating}</td>
-                        <td>{movie.tomato.critic.rating}</td>
-                        <td>{movie.metacritic.metacritic}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </PopoverBody>
-              </UncontrolledPopover>
-            </td>
           </tr>
         ))}
       </tbody>
+      <br/>
     </table>
   );
 }
@@ -96,7 +70,7 @@ function Search({ setNewData }) {
 
   const onSubmit = evt => {
     evt.preventDefault();
-    Facade.fetchMovieAll(search.search)
+    Facade.fetchSimpleMovie(search.search)
       .then(res => (Array.isArray(res) ? setNewData(res) : setNewData([res])))
       .catch(e => setNewData([]));
   };

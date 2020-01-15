@@ -8,32 +8,15 @@ package facades;
 import com.google.gson.Gson;
 import entities.dto.ImdbDTO;
 import entities.dto.MetacriticDTO;
-import entities.dto.MovieAllDTO;
 import entities.dto.TomatoDTO;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Scanner;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import org.json.JSONObject;
 
 /**
  *
- * @author APC
+ * @author William
  */
 public class CriticsFacade {
     
@@ -120,12 +103,6 @@ public class CriticsFacade {
         } finally {
             con.disconnect();
         }
-    }
-    
-    public static void main(String[] args) {
-        CriticsFacade mf = new CriticsFacade();
-        TomatoDTO md = mf.fetchTomato("Die Hard");
-        System.out.println(md.getCritic().getRating());
     }
     
 }
